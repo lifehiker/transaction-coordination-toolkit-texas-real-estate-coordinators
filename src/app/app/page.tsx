@@ -30,33 +30,36 @@ export default async function DashboardPage() {
     orderBy: { effectiveDate: "desc" },
   });
 
-  const transactions = transactionsRaw
-    .map((tx) => {
-      const nearestDueAt =
-        tx.deadlines
-          .filter((d) => !d.completedAt && new Date(d.dueAt) >= new Date())
-          .sort((a, b) => new Date(a.dueAt).getTime() - new Date(b.dueAt).getTime())[0]?.dueAt ??
-        tx.closingDate ??
-        tx.effectiveDate;
-
-      return { ...tx, nearestDueAt };
-    })
-    .sort((a, b) => new Date(a.nearestDueAt).getTime() - new Date(b.nearestDueAt).getTime());
+  type TxWithDeadlines = (typeof transactionsRaw)[number];
+  type DeadlineItem = TxWithDeadlines["deadlines"][number];
+  type TxMapped = TxWithDeadlines & { nearestDueAt: Date };
+  const mapped: TxMapped[] = transactionsRaw.map((tx: TxWithDeadlines) => {
+    const nearestDueAt =
+      tx.deadlines
+        .filter((d: DeadlineItem) => !d.completedAt && new Date(d.dueAt) >= new Date())
+        .sort((a: DeadlineItem, b: DeadlineItem) => new Date(a.dueAt).getTime() - new Date(b.dueAt).getTime())[0]?.dueAt ??
+      tx.closingDate ??
+      tx.effectiveDate;
+    return { ...tx, nearestDueAt };
+  });
+  const transactions = mapped.sort(
+    (a: TxMapped, b: TxMapped) => new Date(a.nearestDueAt).getTime() - new Date(b.nearestDueAt).getTime()
+  );
 
   // Get deadlines within 3 days for the high-priority dashboard view.
   const now = new Date();
   const threeDaysOut = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
 
   const upcomingDeadlines = transactions
-    .flatMap((tx) =>
+    .flatMap((tx: TxMapped) =>
       tx.deadlines
         .filter(
-          (d) =>
+          (d: DeadlineItem) =>
             !d.completedAt &&
             new Date(d.dueAt) >= now &&
             new Date(d.dueAt) <= threeDaysOut
         )
-        .map((d) => ({ ...d, transactionName: tx.name, transactionId: tx.id }))
+        .map((d: DeadlineItem) => ({ ...d, transactionName: tx.name, transactionId: tx.id }))
     )
     .sort((a, b) => new Date(a.dueAt).getTime() - new Date(b.dueAt).getTime());
 

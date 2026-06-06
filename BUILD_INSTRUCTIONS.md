@@ -5,7 +5,7 @@
 - **App Name:** transaction-coordination-toolkit-texas-real-estate-coordinators
 - **Repository:** transaction-coordination-toolkit-texas-real-estate-coordinators
 - **Tech Stack:** Next.js 15 (App Router) + TypeScript + Tailwind + shadcn/ui
-- **Description:** A workflow tool for real estate transaction coordinators and solo agents managing contract-to-close communications and deadlines. It combines deadline calculations for Texas resale contracts with reusable email, portal, and SMS snippets for disclosures, inspections, escrow, HOA documents, amendments, and closing checklists.
+- **Description:** transaction-coordination-toolkit-texas-real-estate-coordinators
 
 ---
 
