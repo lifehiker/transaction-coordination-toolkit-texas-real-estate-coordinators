@@ -8,8 +8,8 @@ export function getStripe() {
 }
 
 export function getPlanFromPriceId(priceId: string): string {
-  if (priceId === process.env.STRIPE_PRICE_SOLO_MONTHLY) return "solo";
-  if (priceId === process.env.STRIPE_PRICE_POWER_MONTHLY) return "power";
-  if (priceId === process.env.STRIPE_PRICE_TEAM_MONTHLY) return "team";
+  if (priceId && priceId === process.env.STRIPE_PRICE_SOLO_MONTHLY) return "solo";
+  if (priceId && priceId === process.env.STRIPE_PRICE_POWER_MONTHLY) return "power";
+  if (priceId && priceId === process.env.STRIPE_PRICE_TEAM_MONTHLY) return "team";
   return "free";
 }
