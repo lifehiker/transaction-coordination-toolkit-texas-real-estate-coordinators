@@ -31,7 +31,7 @@ export function AppSidebar() {
   }
 
   return (
-    <aside className="w-60 shrink-0 border-r border-border bg-sidebar h-full flex flex-col py-6 px-3">
+    <aside className="hidden md:flex w-60 shrink-0 border-r border-border bg-sidebar h-full flex-col py-6 px-3">
       <nav className="flex-1 space-y-1">
         {navItems.map((item) => (
           <Link
