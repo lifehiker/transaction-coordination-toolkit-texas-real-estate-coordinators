@@ -15,10 +15,14 @@ interface CustomSnippet {
   body: string;
 }
 
-export function CustomSnippetsClient() {
-  const [snippets, setSnippets] = useState<CustomSnippet[]>([]);
+interface CustomSnippetsClientProps {
+  initialSnippets: CustomSnippet[];
+}
+
+export function CustomSnippetsClient({ initialSnippets }: CustomSnippetsClientProps) {
+  const [snippets, setSnippets] = useState<CustomSnippet[]>(initialSnippets);
   const [editingSnippet, setEditingSnippet] = useState<CustomSnippet | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetchSnippets = useCallback(async () => {
     try {
