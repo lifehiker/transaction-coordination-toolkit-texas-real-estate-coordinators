@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { SnippetCard } from "@/components/app/SnippetCard";
 import { CustomSnippetForm } from "@/components/app/CustomSnippetForm";
 import { toast } from "sonner";
@@ -22,7 +22,6 @@ interface CustomSnippetsClientProps {
 export function CustomSnippetsClient({ initialSnippets }: CustomSnippetsClientProps) {
   const [snippets, setSnippets] = useState<CustomSnippet[]>(initialSnippets);
   const [editingSnippet, setEditingSnippet] = useState<CustomSnippet | null>(null);
-  const [loading, setLoading] = useState(false);
 
   const fetchSnippets = useCallback(async () => {
     try {
@@ -33,32 +32,7 @@ export function CustomSnippetsClient({ initialSnippets }: CustomSnippetsClientPr
       }
     } catch {
       // ignore
-    } finally {
-      setLoading(false);
     }
-  }, []);
-
-  useEffect(() => {
-    let ignore = false;
-
-    async function load() {
-      try {
-        const res = await fetch("/api/snippets/custom/list");
-        if (res.ok && !ignore) {
-          const data = await res.json();
-          setSnippets(data.snippets ?? []);
-        }
-      } catch {
-        // ignore
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    }
-
-    void load();
-    return () => {
-      ignore = true;
-    };
   }, []);
 
   async function handleDelete(id: string) {
@@ -92,9 +66,7 @@ export function CustomSnippetsClient({ initialSnippets }: CustomSnippetsClientPr
         onSuccess={fetchSnippets}
       />
 
-      {loading ? (
-        <div className="text-center py-8 text-muted-foreground text-sm">Loading...</div>
-      ) : snippets.length === 0 ? (
+      {snippets.length === 0 ? (
         <div className="text-center py-8 text-muted-foreground text-sm">
           No custom snippets yet. Create your first one above.
         </div>
