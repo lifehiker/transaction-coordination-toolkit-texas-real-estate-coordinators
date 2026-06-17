@@ -29,10 +29,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <SessionProvider>
           <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <Toaster />
         </SessionProvider>
+        <main>{children}</main>
+        <Footer />
+        <Toaster />
       </body>
     </html>
   );
