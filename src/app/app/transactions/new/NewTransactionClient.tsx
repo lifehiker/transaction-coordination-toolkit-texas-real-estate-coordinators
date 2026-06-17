@@ -1,5 +1,3 @@
-"use client";
-
 import { TransactionForm } from "@/components/app/TransactionForm";
 import { createTransaction } from "@/app/app/transactions/actions";
 import Link from "next/link";
