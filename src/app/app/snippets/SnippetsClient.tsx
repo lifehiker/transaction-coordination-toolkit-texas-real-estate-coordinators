@@ -1,5 +1,3 @@
-"use client";
-
 import { Suspense } from "react";
 import { SnippetFilters } from "@/components/app/SnippetFilters";
 import { SnippetCard } from "@/components/app/SnippetCard";
