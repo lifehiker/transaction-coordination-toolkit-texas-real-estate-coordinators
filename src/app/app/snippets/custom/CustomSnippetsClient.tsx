@@ -52,13 +52,6 @@ export function CustomSnippetsClient({ initialSnippets }: CustomSnippetsClientPr
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold mb-1">Custom Snippets</h1>
-        <p className="text-sm text-muted-foreground">
-          Create and manage your own custom communication templates.
-        </p>
-      </div>
-
       <CustomSnippetForm
         key={editingSnippet?.id ?? "new-custom-snippet"}
         editingSnippet={editingSnippet}

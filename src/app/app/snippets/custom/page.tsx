@@ -12,5 +12,15 @@ export default async function CustomSnippetsPage() {
     orderBy: { createdAt: "desc" },
   });
 
-  return <CustomSnippetsClient initialSnippets={snippets} />;
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold mb-1">Custom Snippets</h1>
+        <p className="text-sm text-muted-foreground">
+          Create and manage your own custom communication templates.
+        </p>
+      </div>
+      <CustomSnippetsClient initialSnippets={snippets} />
+    </div>
+  );
 }
