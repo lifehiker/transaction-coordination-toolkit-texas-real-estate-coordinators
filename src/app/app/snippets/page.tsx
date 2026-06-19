@@ -35,5 +35,16 @@ export default async function SnippetsPage({
     orderBy: [{ isPremium: "asc" }, { sortOrder: "asc" }],
   });
 
-  return <SnippetsClient snippets={snippets} tier={tier} hasPremium={hasPremium} />;
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold mb-1">Snippet Library</h1>
+        <p className="text-sm text-muted-foreground">
+          {snippets.length} template{snippets.length !== 1 ? "s" : ""}
+          {hasPremium ? "" : " · 15 free previews, rest locked"}
+        </p>
+      </div>
+      <SnippetsClient snippets={snippets} tier={tier} hasPremium={hasPremium} />
+    </div>
+  );
 }

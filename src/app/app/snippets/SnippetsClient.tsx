@@ -23,14 +23,6 @@ interface SnippetsClientProps {
 export function SnippetsClient({ snippets, tier, hasPremium }: SnippetsClientProps) {
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold mb-1">Snippet Library</h1>
-        <p className="text-sm text-muted-foreground">
-          {snippets.length} template{snippets.length !== 1 ? "s" : ""}
-          {hasPremium ? "" : " · 15 free previews, rest locked"}
-        </p>
-      </div>
-
       <SubscriptionBanner tier={tier} />
 
       <Suspense>
